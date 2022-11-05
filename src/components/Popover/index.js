@@ -19,56 +19,60 @@ const getStyleAccToPosition = (position) => {
         case "right":
             return {
                 positionStyle: {
-                    right: -28,
                     top: "50%",
+                    right: -9,
                     transform: "translate(100%, -50%)",
                 },
                 arrowStyle: {
-                    right: -34,
-                    top: "50%",
+                    top: "calc(50% - 6px)",
+                    right: -15,
                     transform: "rotate(135deg)",
                 },
+                position: "right",
             }
 
         case "bottom":
             return {
                 positionStyle: {
+                    bottom: -9,
                     right: "50%",
-                    bottom: -20,
                     transform: "translate(50%, 100%)",
                 },
                 arrowStyle: {
-                    right: "50%",
-                    bottom: -26,
+                    bottom: -15,
+                    right: "calc(50% - 6px)",
                     transform: "rotate(225deg)",
                 },
+                position: "bottom",
             }
 
         case "left":
             return {
                 positionStyle: {
-                    left: -28,
+                    left: -9,
                     top: "50%",
                     transform: "translate(-100%, -50%)",
                 },
                 arrowStyle: {
-                    left: "-34px",
-                    top: "50%",
+                    left: -15,
+                    top: "calc(50% - 6px)",
                     transform: "rotate(315deg)",
                 },
+                position: "left",
             }
         default:
             return {
                 positionStyle: {
+                    top: -9,
                     left: "50%",
-                    top: "calc(-50% - 16px)",
                     transform: "translate(-50%, -100%)",
                 },
                 arrowStyle: {
-                    left: "50%",
-                    top: "calc(-50% - 22px)",
+                    top: -15,
+                    left: "calc(50% - 6px)",
                     transform: "rotate(45deg)",
                 },
+                position: "top",
             }
     }
 }
@@ -82,14 +86,16 @@ const Popover = ({
     children,
 }) => {
     const [PopoverVisible, setPopoverVisible] = useState(!disappear)
+    const [backgroundColor, setBackgroundColor] = useState("#d2d2d2")
 
     const showPopover = () => setPopoverVisible(true)
     const hidePopover = () => setPopoverVisible(false)
+    const onHoverEffect = () => setBackgroundColor("blue")
+    const offHoverEffect = () => setBackgroundColor("#d2d2d2")
 
     const hasContent = title || content
     const styleAccToPosition = getStyleAccToPosition(position)
 
-    console.log(PopoverVisible)
     return (
         <div
             className="popover-conatiner"
@@ -103,15 +109,40 @@ const Popover = ({
                 <>
                     <div
                         className="popover-arrow"
-                        style={{ ...styleAccToPosition.arrowStyle, visibility: PopoverVisible ? "visible" : "hidden" }}
+                        style={{
+                            ...styleAccToPosition.arrowStyle,
+                            visibility: PopoverVisible ? "visible" : "hidden",
+                            borderColor: backgroundColor,
+                        }}
                     />
                     <div
-                        className="popover-content shadow"
-                        onMouseEnter={() => trigger === TriggerOptions.HOVER && showPopover()}
-                        onMouseLeave={() => trigger === TriggerOptions.HOVER && hidePopover()}
+                        className="popover-arrow-background"
+                        style={{
+                            ...styleAccToPosition.arrowStyle,
+                            visibility: PopoverVisible ? "visible" : "hidden",
+                            borderColor: backgroundColor,
+                            [styleAccToPosition.position]:
+                                styleAccToPosition.arrowStyle[styleAccToPosition.position] - 1.5,
+                        }}
+                    />
+                    <div
+                        className="popover-content"
+                        onMouseEnter={() => {
+                            if (trigger === TriggerOptions.HOVER) {
+                                showPopover()
+                                onHoverEffect()
+                            }
+                        }}
+                        onMouseLeave={() => {
+                            if (trigger === TriggerOptions.HOVER) {
+                                hidePopover()
+                                offHoverEffect()
+                            }
+                        }}
                         style={{
                             ...styleAccToPosition.positionStyle,
                             visibility: PopoverVisible ? "visible" : "hidden",
+                            borderColor: backgroundColor,
                         }}
                     >
                         {title && <div className="popover-title">{title}</div>}
