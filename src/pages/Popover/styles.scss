@@ -1,0 +1,36 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    min-height: 75vh;
+    justify-content: center;
+    align-items: center;
+
+    .trigger,
+    .positions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+
+        .demo-btns {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+    }
+
+    button {
+        display: flex;
+        border-radius: 6px;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 500;
+        background-color: #1890ff;
+        border: 1px solid transparent;
+        border-color: #1890ff;
+        color: #fff;
+        padding: 4px 12px;
+    }
+}

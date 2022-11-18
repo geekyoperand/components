@@ -62,10 +62,10 @@ body {
     margin: 24px auto;
     max-width: 1280px;
     box-shadow: 0 0 40px -10px rgba(#141322, 0.2);
-    padding: 0 40px;
+    padding: 40px;
 
     @media (max-width: 1279px) {
-        padding: 0 28px;
+        padding: 28px;
     }
 }
 
@@ -175,7 +175,7 @@ h6 {
     }
 
     &-faint {
-        color: rgba(black, 0.2) !important;
+        color: rgba(black, 0.4) !important;
     }
 
     &-spaced {
@@ -202,8 +202,16 @@ h6 {
         font-size: 1.15em !important;
     }
 
+    &-left {
+        text-align: left !important;
+    }
+    
     &-center {
         text-align: center !important;
+    }
+
+    &-right {
+        text-align: right !important;
     }
 
     &-bold {
